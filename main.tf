@@ -1,41 +1,10 @@
 provider "aws" {
-  profile = "default"
-  region = "${var.region}"
+  profile = "${var.aws_profile}"
+  region = "${var.aws_region}"
 }
 
 # This will fetch our account_id, no need to hard code it
 data "aws_caller_identity" "current" {}
-
-# Variables
-variable "region" {
-  default = "eu-west-1"
-}
-
-variable "pip_path" {}
-
-variable "lambda_name" {
-  default = "lambda_test"
-}
-
-variable "lambda_iam_name" {
-  default = "lambda_iam"
-}
-
-variable "lambda_api_name" {
-  default = "lambda_api"
-}
-
-variable "api_stage_name" {
-  default = "dev"
-}
-
-variable "api_resource_path" {
-  default = "resource"
-}
-
-variable "api_http_method" {
-  default = "GET"
-}
 
 # Prepare Lambda package (https://github.com/hashicorp/terraform/issues/8344#issuecomment-345807204)
 resource "null_resource" "pip" {
@@ -81,7 +50,7 @@ resource "aws_api_gateway_integration" "integration" {
   http_method             = "${aws_api_gateway_method.method.http_method}"
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${aws_lambda_function.lambda.arn}/invocations"
+  uri                     = "arn:aws:apigateway:${var.aws_region}:lambda:path/2015-03-31/functions/${aws_lambda_function.lambda.arn}/invocations"
 }
 
 resource "aws_api_gateway_deployment" "deployment" {
@@ -99,7 +68,7 @@ resource "aws_lambda_permission" "lambda_apigw" {
   principal     = "apigateway.amazonaws.com"
 
   # More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
-  source_arn = "arn:aws:execute-api:${var.region}:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.lambda_api.id}/*/${aws_api_gateway_method.method.http_method}${aws_api_gateway_resource.resource.path}"
+  source_arn = "arn:aws:execute-api:${var.aws_region}:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.lambda_api.id}/*/${aws_api_gateway_method.method.http_method}${aws_api_gateway_resource.resource.path}"
 }
 
 resource "aws_lambda_function" "lambda" {
