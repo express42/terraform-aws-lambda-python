@@ -1,8 +1,0 @@
-region = "eu-west-1"
-pip_path = "./venv/bin/pip"
-lambda_name = "lambda_test"
-lambda_iam_name = "lambda_iam"
-lambda_api_name = "lambda_api"
-api_stage_name = "dev"
-api_resource_path = "resource"
-api_http_method = "POST"

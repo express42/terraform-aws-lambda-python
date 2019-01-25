@@ -1,3 +1,0 @@
-bucket = "terraform-remote-state"
-key    = "lambda/lambda_test"
-region = "eu-central-1"

@@ -1,7 +1,3 @@
-terraform {
-  backend "s3" {}
-}
-
 provider "aws" {
   profile = "default"
   region = "${var.region}"
@@ -49,14 +45,14 @@ resource "null_resource" "pip" {
   }
 
   provisioner "local-exec" {
-    command = "${var.pip_path} install -r ${path.module}/requirements.txt -t lambda/lib"
+    command = "${var.pip_path} install -r ${path.root}/requirements.txt -t lambda/lib"
   }
 }
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_dir  = "${path.module}/lambda/"
-  output_path = "${path.module}/lambda.zip"
+  source_dir  = "${path.root}/lambda/"
+  output_path = "${path.root}/lambda.zip"
 
   depends_on = ["null_resource.pip"]
 }
@@ -119,7 +115,7 @@ resource "aws_lambda_function" "lambda" {
 resource "aws_iam_role" "lambda_iam" {
   name = "${var.lambda_iam_name}"
 
-  assume_role_policy = "${file("policy.json")}"
+  assume_role_policy = "${file("${path.module}/policy.json")}"
 }
 
 resource "aws_iam_role_policy_attachment" "logs_policy" {
