@@ -92,7 +92,9 @@ resource "aws_iam_role_policy_attachment" "logs_policy" {
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-# Output
-output "url" {
-  value = "${aws_api_gateway_deployment.deployment.invoke_url}${aws_api_gateway_resource.resource.path}"
+# CloudWatch 
+resource "aws_cloudwatch_log_group" "lambda_log_group" {
+  name = "/aws/lambda/${var.lambda_name}"
+
+  retention_in_days = 30
 }
