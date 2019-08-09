@@ -33,6 +33,10 @@ module "lambda_python" {
   api_resource_path = "example"
   api_http_method   = "POST"
 }
+
+output "lambda_url" {
+  value = "${module.lambda_python.url}"
+}
 ```
 
 ## Examples
