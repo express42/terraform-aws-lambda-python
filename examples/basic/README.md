@@ -7,8 +7,8 @@ Configuration in this directory deploys simple python script to AWS Lambda. Scri
 To run this example you need to execute:
 ```bash
 $ terraform init
-$ terraform plan
-$ terraform apply
+$ terraform plan -out=basic.tfplan
+$ terraform apply -auto-approve basic.tfplan
 ```
 
 Note that this configuration might create resources which cost money. Run `terraform destroy` when you don't need these resources anymore.
@@ -23,7 +23,7 @@ Note that this configuration might create resources which cost money. Run `terra
 
 Send POST request to `<api_gateway>` url to test Lambda function. If you send data using flag `-d <data>` you should receive same data as a response. 
 ```bash
-$ curl -X POST -d echo <api_gateway>
+$ curl -X POST -d pong <api_gateway>
 
-"echo"
+"pong"
 ```
