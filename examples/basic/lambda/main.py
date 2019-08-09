@@ -21,7 +21,7 @@ def response(status=200, headers={'Content-Type': 'application/json'}, body=''):
 
 def lambda_handler(event, context):
     print(event)
-    return response(status=200)
+    return response(status=200, body=event['body'])
 
 
 if __name__ == '__main__':
