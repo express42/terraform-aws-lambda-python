@@ -1,33 +1,53 @@
 variable "aws_profile" {
-  default = "default"
+  type        = string
+  default     = "default"
+  description = "Name of configured AWS profile to use for Lambda provision"
 }
 
 variable "aws_region" {
-  default = "eu-west-1"
+  type        = string
+  default     = "eu-west-1"
+  description = "Region where to provision Lambda"
 }
 
-variable "pip_path" {}
+variable "pip_path" {
+  type        = string
+  default     = "/usr/local/bin/pip"
+  description = "Path to your pip installation"
+}
 
 variable "lambda_name" {
-  default = "lambda_test"
+  type        = string
+  default     = "lambda_test"
+  description = "Lambda function name"
 }
 
 variable "lambda_iam_name" {
-  default = "lambda_iam"
+  type        = string
+  default     = "lambda_iam"
+  description = "Name of IAM for Lambda"
 }
 
 variable "lambda_api_name" {
-  default = "lambda_api"
+  type        = string
+  default     = "lambda_api"
+  description = "Name of API Gateway for Lambda"
 }
 
 variable "api_stage_name" {
-  default = "dev"
+  type        = string
+  default     = "dev"
+  description = "API Gateway Stage"
 }
 
 variable "api_resource_path" {
-  default = "lambda_resource"
+  type        = string
+  default     = "lambda_resource"
+  description = "API Gateway Path"
 }
 
 variable "api_http_method" {
-  default = "GET"
+  type        = string
+  default     = "GET"
+  description = "Method to trigger Lambda through API Gateway"
 }
