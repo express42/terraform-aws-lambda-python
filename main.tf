@@ -8,7 +8,7 @@ data "aws_caller_identity" "current" {}
 
 # Prepare Lambda package (https://github.com/hashicorp/terraform/issues/8344#issuecomment-345807204)
 resource "null_resource" "pip" {
-  triggers {
+  triggers = {
     main         = "${base64sha256(file("lambda/main.py"))}"
     requirements = "${base64sha256(file("requirements.txt"))}"
   }
