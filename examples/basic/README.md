@@ -18,3 +18,12 @@ Note that this configuration might create resources which cost money. Run `terra
 | Name | Description |
 |------|-------------|
 | api\_gateway | The API Gateway for receiving webhooks by Lambda function |
+
+## Test
+
+Send POST request to `<api_gateway>` url to test Lambda function. If you send data using flag `-d <data>` you should receive same data as a response. 
+```bash
+$ curl -X POST -d echo <api_gateway>
+
+"echo"
+```
