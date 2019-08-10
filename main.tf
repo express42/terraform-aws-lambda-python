@@ -92,6 +92,15 @@ resource "aws_iam_role_policy_attachment" "logs_policy" {
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
+resource "aws_iam_role_policy" "additional_policy" {
+  count = "${var.iam_additional_policy != "" ? 1 : 0}"
+
+  name = "${var.lambda_iam_name}-additional-policy"
+  role = "${aws_iam_role.lambda_iam.id}"
+
+  policy = "${var.iam_additional_policy}"
+}
+
 # CloudWatch 
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
   name = "/aws/lambda/${var.lambda_name}"
