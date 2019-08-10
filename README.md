@@ -6,6 +6,7 @@ Terraform module which prepares and deploys python lambda function and prepares 
 * Downloads python dependencies from requirements.txt to `lambda/lib` directory
 * Archives lambda function with all dependencies into `lambda.zip`
 * Creates IAM policy, lambda function, API Gateway and CloudWatch log group
+* Creates IAM policy with additional rules
 * Deploy lambda function
 * Possible to use with python virtualenv
 
@@ -15,7 +16,7 @@ Terraform module which prepares and deploys python lambda function and prepares 
 * Put logic into `lambda_handler` in `lambda/main.py`
 * Put your Lambda function requirements into `requirements.txt`
 
-### Basic configuration
+### Configuration example
 ```hcl
 module "lambda_python" {
   source            = "express42/lambda-python/aws"
