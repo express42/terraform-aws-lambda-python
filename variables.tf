@@ -52,7 +52,7 @@ variable "api_http_method" {
   description = "Method to trigger Lambda through API Gateway"
 }
 
-variable "lambda_iam_additional_policy" {
+variable "iam_additional_policy" {
   type        = string
   default     = ""
   description = "Additional IAM Policy for Lambda function"
