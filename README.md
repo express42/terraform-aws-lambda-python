@@ -32,6 +32,27 @@ module "lambda_python" {
   api_stage_name    = "dev"
   api_resource_path = "example"
   api_http_method   = "POST"
+  
+  iam_additional_policy = <<POLICY
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "dynamodb:BatchGetItem",
+          "dynamodb:GetItem",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:BatchWriteItem",
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem"
+        ],
+        "Resource": "arn:aws:dynamodb:*"
+      }
+    ]
+  }
+  POLICY
 }
 
 output "lambda_url" {
